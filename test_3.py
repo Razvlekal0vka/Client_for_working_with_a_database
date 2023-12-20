@@ -8,9 +8,7 @@ root.title("Пример таблицы")
 # Создание виджета Treeview (таблицы)
 tree = ttk.Treeview(root)
 
-tree.grid(row=0, column=0)
-tree.configure(width=400, height=300)
-tree.configure(width=("chars", 50), height=("lines", 20))
+
 
 
 # Определение колонок
@@ -30,6 +28,13 @@ tree.insert(parent="", index="end", text="4", values=("Diana", 22, "Female"))
 
 # Отображение таблицы
 tree.pack()
+tree.place(x=10, y=10, width=400, height=200)
 
 # Запуск основного цикла
 root.mainloop()
+
+
+#def init():
+#    window = tk.Tk()
+#    window.geometry("200x480")
+#    window.title("DB Client")

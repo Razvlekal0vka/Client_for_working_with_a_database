@@ -55,7 +55,7 @@ def main():
     # Initialize window
     def init():
         window = tk.Tk()
-        window.geometry("200x480")
+        window.geometry("1660x480")
         window.title("DB Client")
 
         # Get data from TKinter entry poles
@@ -202,12 +202,13 @@ def main():
         # Show table
         def show_table():
             data = get_table_data()
-            table_window = tk.Toplevel()
-            table_window.geometry("800x600")
-            table_window.title("Data Table")
+            #table_window = tk.Toplevel()
+            #table_window.geometry("800x600")
+            #table_window.title("Data Table")
 
             columns = ('id', 'fam', 'nam', 'otc', 'street', 'building', 'appartment', 'phone')
-            tree = ttk.Treeview(table_window, columns=columns, show='headings')
+            tree = ttk.Treeview(window, columns=columns, show='headings')
+            #tree = ttk.Treeview(table_window, columns=columns, show='headings')
             # tree["columns"] = ("ID", "Фамилия", "Имя", "Отчество", "Улица", "Здание", "Квартира", "Телефон")
 
             tree.heading("id", text="ID")
@@ -219,74 +220,105 @@ def main():
             tree.heading("appartment", text="Квартира")
             tree.heading("phone", text="Телефон")
 
-            i = 0
-            for wid in (10, 70, 50, 70, 120, 30, 20, 100):
-                tree.column(tree["columns"][i], width=wid)
-                i += 1
+            #i = 0
+            #for wid in (10, 70, 50, 70, 120, 30, 20, 100):
+            #    tree.column(tree["columns"][i], width=wid)
+            #    i += 1
 
             for row in data:
                 tree.insert("", 'end', values=row)
 
             tree.pack(expand=True, fill="both")
 
+            tree.place(x=10, y=70, width=1640, height=400)
+
         # Функциональные поля для ввода данных
+        height = 20
+        width = 100
+
         label_fam = tk.Label(window, text="Фамилия:")
         label_fam.pack()
+        label_fam.place(x=10, y=10, width=width, height=height)
         entry_fam = tk.Entry(window)
         entry_fam.pack()
+        entry_fam.place(x=10, y=30, width=width, height=height)
 
         label_nam = tk.Label(window, text="Имя:")
         label_nam.pack()
+        label_nam.place(x=130, y=10, width=width, height=height)
         entry_nam = tk.Entry(window)
         entry_nam.pack()
+        entry_nam.place(x=130, y=30, width=width, height=height)
 
         label_otc = tk.Label(window, text="Отчество:")
         label_otc.pack()
+        label_otc.place(x=250, y=10, width=width, height=height)
         entry_otc = tk.Entry(window)
         entry_otc.pack()
+        entry_otc.place(x=250, y=30, width=width, height=height)
 
-        label_street = tk.Label(window, text="Улица:")
+        label_street = tk.Label(window, text="Street:")
         label_street.pack()
+        label_street.place(x=370, y=10, width=width, height=height)
         entry_street = tk.Entry(window)
         entry_street.pack()
+        entry_street.place(x=370, y=30, width=width, height=height)
 
-        label_building = tk.Label(window, text="Здание:")
+        label_building = tk.Label(window, text="House:")
         label_building.pack()
+        label_building.place(x=490, y=10, width=width, height=height)
         entry_building = tk.Entry(window)
         entry_building.pack()
+        entry_building.place(x=490, y=30, width=width, height=height)
 
         label_apartment = tk.Label(window, text="Квартира:")
         label_apartment.pack()
+        label_apartment.place(x=610, y=10, width=width, height=height)
         entry_apartment = tk.Entry(window)
         entry_apartment.pack()
+        entry_apartment.place(x=610, y=30, width=width, height=height)
 
         label_phone = tk.Label(window, text="Телефон:")
         label_phone.pack()
+        label_phone.place(x=730, y=10, width=width, height=height)
         entry_phone = tk.Entry(window)
         entry_phone.pack()
+        entry_phone.place(x=730, y=30, width=width, height=height)
 
         # Кнопка для добавления данных в БД
-        button_insert = tk.Button(window, text="Добавить данные", command=insert_data)
+        button_insert = tk.Button(window, text="Add data", command=insert_data)
         button_insert.pack()
+        button_insert.place(x=850, y=30, width=width, height=height)
+
         # Кнопка для обновления данных в БД
         # Entry for ID to change
         label_change_id = tk.Label(window, text="ID для изменения:")
         label_change_id.pack()
+        label_change_id.place(x=1020, y=10, width=width, height=height)
         entry_change_id = tk.Entry(window)
         entry_change_id.pack()
+        entry_change_id.place(x=1020, y=30, width=width, height=height)
+
         button_change = tk.Button(window, text="Изменить данные", command=change_data)
         button_change.pack()
+        button_change.place(x=1140, y=30, width=width, height=height)
+
         # Кнопка для удаления данных БД
         label_delete_id = tk.Label(window, text="ID для удаления:")
         label_delete_id.pack()
+        label_delete_id.place(x=1310, y=10, width=width, height=height)
         entry_delete_id = tk.Entry(window)
         entry_delete_id.pack()
+        entry_delete_id.place(x=1310, y=30, width=width, height=height)
+
         button_delete = tk.Button(window, text="Удалить данные", command=delete_data)
         button_delete.pack()
+        button_delete.place(x=1430, y=30, width=width, height=height)
 
         # Кнопка для показа данных БД
-        button_show = tk.Button(window, text="Показать данные", command=show_table)
+        button_show = tk.Button(window, text="Обновить данные", command=show_table)
         button_show.pack()
+        button_show.place(x=1550, y=30, width=width, height=height)
 
         window.mainloop()
 
