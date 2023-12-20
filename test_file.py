@@ -1,28 +1,55 @@
-import sqlite3  # импортируем библиотеку для работы с SQLite
+import sys
+from PyQt5.QtWidgets import QApplication, QMainWindow, QHBoxLayout, QPushButton, QWidget, QTableWidget, QVBoxLayout
 
-conn = sqlite3.connect('example.db')  # создаем соединение с базой данных
-cur = conn.cursor()  # получаем курсор для выполнения запросов
 
-cur.execute(''' CREATE TABLE IF NOT EXISTS example (
-                id integer PRIMARY KEY, 
-                name text, 
-                age integer
-              ) ''')  # создаем таблицу "example" в базе данных
-conn.commit()  # сохраняем изменения
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Мое оконное приложение")
+        self.resize(960, 540)  # Установка размеров окна
+        self.move(100, 100)  # Установка положения окна
 
-entries = [
-    {'name': 'Alice', 'age': 18},
-    {'name': 'Bob', 'age': 20}
-]
+        # Создание горизонтального контейнера для кнопок
+        # layout = QHBoxLayout()  # Хз что это делает, тк это есть в коде только для таблиц,
+        # но вроде это отвечает за расположение и какую-то там сетку
 
-for entry in entries:
-    cur.execute(f''' INSERT INTO example (name, age) 
-                     VALUES ({entry['name']}, {entry['age']}) ''')
-    conn.commit()
+        """Создание кнопок"""
+        button_add = QPushButton("Добавить", self)
+        button_edit = QPushButton("Редактировать", self)
+        button_delete = QPushButton("Удалить", self)
 
-result = cur.execute('SELECT * FROM example').fetchall()  # выбираем все записи из таблицы
-for row in result:
-    print(row)
+        # Настройка размеров кнопок
+        button_add.setFixedSize(100, 30)
+        button_edit.setFixedSize(100, 30)
+        button_delete.setFixedSize(100, 30)
 
-cur.close()  # закрываем курсор
-conn.close()  # закрываем соединение
+        # Настройка расположения кнопок
+        button_add.move(10, 10)
+        button_edit.move(120, 10)
+        button_delete.move(230, 10)
+
+        """Создание таблицы"""
+        table = QTableWidget(10, 5)  # Создание таблицы с 10 строками и 5 столбцами
+
+        table.setFixedSize(960, 400)  # Установка фиксированного размера таблицы
+        # table.move(200, 400) - не работает
+
+        # Создание вертикального контейнера для таблицы
+        layout = QVBoxLayout()
+        layout.addWidget(table)
+
+        # Создание основного виджета и установка в него контейнера
+        widget = QWidget()
+        widget.setLayout(layout)
+
+        # Установка основного виджета в главное окно
+        self.setCentralWidget(widget)
+
+        self.show()
+
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    window = MainWindow()
+    window.show()
+    sys.exit(app.exec_())
