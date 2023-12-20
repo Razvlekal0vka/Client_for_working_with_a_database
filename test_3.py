@@ -1,22 +1,35 @@
-import flet as ft
+import tkinter as tk
+from tkinter import ttk
+
+# Создание окна
+root = tk.Tk()
+root.title("Пример таблицы")
+
+# Создание виджета Treeview (таблицы)
+tree = ttk.Treeview(root)
+
+tree.grid(row=0, column=0)
+tree.configure(width=400, height=300)
+tree.configure(width=("chars", 50), height=("lines", 20))
 
 
-def main(page):
-    def button_clicked(e):
-        t.value = (
-            f"Switch values are:  {c1.value}, {c2.value}, {c3.value}, {c4.value}."
-        )
-        page.update()
+# Определение колонок
+tree["columns"] = ("Name", "Age", "Gender")
 
-    t = ft.Text()
-    c1 = ft.Switch(label="Unchecked switch", value=False)
-    c2 = ft.Switch(label="Checked switch", value=True)
-    c3 = ft.Switch(label="Disabled switch", disabled=True)
-    c4 = ft.Switch(
-        label="Switch with rendered label_position='left'", label_position=ft.LabelPosition.LEFT
-    )
-    b = ft.ElevatedButton(text="Submit", on_click=button_clicked)
-    page.add(c1, c2, c3, c4, b, t)
+# Настройка заголовков колонок
+tree.heading("#0", text="ID")
+tree.heading("Name", text="Имя")
+tree.heading("Age", text="Возраст")
+tree.heading("Gender", text="Пол")
 
+# Добавление данных в таблицу
+tree.insert(parent="", index="end", text="1", values=("Alice", 25, "Female"))
+tree.insert(parent="", index="end", text="2", values=("Bob", 30, "Male"))
+tree.insert(parent="", index="end", text="3", values=("Charlie", 28, "Male"))
+tree.insert(parent="", index="end", text="4", values=("Diana", 22, "Female"))
 
-ft.app(target=main, view=ft.AppView.WEB_BROWSER)
+# Отображение таблицы
+tree.pack()
+
+# Запуск основного цикла
+root.mainloop()
